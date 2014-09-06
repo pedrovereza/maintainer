@@ -7,6 +7,7 @@ package bank.business.domain;
 public class Transfer extends Transaction {
 
 	private CurrentAccount destinationAccount;
+	private Status status = Status.FINISHED;
 
 	public Transfer(OperationLocation location, CurrentAccount account,
 			CurrentAccount destinationAccount, double amount) {
@@ -21,4 +22,8 @@ public class Transfer extends Transaction {
 		return destinationAccount;
 	}
 
+	public Status getStatus() {
+		return status;
+	}
+	
 }

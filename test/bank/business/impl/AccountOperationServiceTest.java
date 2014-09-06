@@ -6,8 +6,11 @@ import bank.business.domain.ATM;
 import bank.business.domain.Branch;
 import bank.business.domain.Client;
 import bank.business.domain.CurrentAccount;
+import bank.business.domain.Status;
 import bank.business.domain.Transfer;
+import bank.business.impl.AccountOperationServiceImpl;
 import bank.data.Database;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,8 +57,23 @@ public class AccountOperationServiceTest {
         assertEquals(transfer.getDestinationAccount(), destinyAccount);
         assertEquals(transfer.getAccount(), sourceAccount);
         assertEquals(transfer.getAmount(), 4000.0, 0.0);
-        //assertEtausl(Transfer.Status.FINISHED, transfer.getStatus());
+        assertEquals(Status.FINISHED, transfer.getStatus());
         assertEquals(destinyAccount.getBalance(), 4000.0, 0.0);
+    }
+    
+    @Test
+    public void should_add_transaction_as_finished_when_branch() throws BusinessException {
+        givenAccountHasBalanceOf(7000.0, SOURCE_ACCOUNT);
+        givenAccountHasBalanceOf(0.0, DESTINY_ACCOUNT);
+
+        Transfer transfer = accountService.transfer(BRANCH_ID, BRANCH_ID, SOURCE_ACCOUNT, BRANCH_ID,
+                DESTINY_ACCOUNT, 6000.0);
+
+        assertEquals(transfer.getDestinationAccount(), destinyAccount);
+        assertEquals(transfer.getAccount(), sourceAccount);
+        assertEquals(transfer.getAmount(), 6000.0, 0.0);
+        assertEquals(Status.FINISHED, transfer.getStatus());
+        assertEquals(destinyAccount.getBalance(), 6000.0, 0.0);
     }
 
     private CurrentAccount anAccount(long accountId) {
