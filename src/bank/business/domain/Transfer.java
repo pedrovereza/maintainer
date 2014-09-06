@@ -9,6 +9,7 @@ public class Transfer extends Transaction {
 	private CurrentAccount destinationAccount;
 	private Status status = Status.FINISHED;
 
+
 	public Transfer(OperationLocation location, CurrentAccount account,
 			CurrentAccount destinationAccount, double amount) {
 		super(location, account, amount);
@@ -26,4 +27,7 @@ public class Transfer extends Transaction {
 		return status;
 	}
 	
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 }

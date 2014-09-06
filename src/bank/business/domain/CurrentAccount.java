@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class CurrentAccount implements Credentials {
 
+	private static final int MAX_ALLOW_AMOUNT = 5000;
 	private double balance;
 	private Client client;
 	private List<Deposit> deposits;
@@ -116,10 +117,16 @@ public class CurrentAccount implements Credentials {
 			throws BusinessException {
 
 		withdrawalAmount(amount);
-		destinationAccount.depositAmount(amount);
 
 		Transfer transfer = new Transfer(location, this, destinationAccount,
 				amount);
+		
+		if (amount >= MAX_ALLOW_AMOUNT) {
+			transfer.setStatus(Status.PENDING);
+		} else {
+			destinationAccount.depositAmount(amount);
+		}
+		
 		this.transfers.add(transfer);
 		destinationAccount.transfers.add(transfer);
 
