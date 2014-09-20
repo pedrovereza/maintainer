@@ -1,8 +1,10 @@
 package bank.business.domain;
 
+import static java.util.Collections.unmodifiableList;
 import bank.business.BusinessException;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -121,7 +123,7 @@ public class CurrentAccount implements Credentials {
 		Transfer transfer = new Transfer(location, this, destinationAccount,
 				amount);
 		
-		if (location instanceof ATM && amount >= MAX_ALLOWED_AMOUNT) {
+		if (isATM(location) && amount >= MAX_ALLOWED_AMOUNT) {
 			transfer.setStatus(Status.PENDING);
 		} else {
 			destinationAccount.depositAmount(amount);
@@ -133,7 +135,23 @@ public class CurrentAccount implements Credentials {
 		return transfer;
 	}
 
-	public Withdrawal withdrawal(OperationLocation location, double amount)
+    private boolean isATM(OperationLocation location) {
+        return location instanceof ATM;
+    }
+
+    public List<Transfer> getAllTransfersPending() {
+        List<Transfer> pendingTransfer = new LinkedList<>();
+
+        for (Transfer transfer : transfers) {
+            if (transfer.isPending() && transfer.getAccount().equals(this)) {
+                pendingTransfer.add(transfer);
+            }
+        }
+
+        return unmodifiableList(pendingTransfer);
+    }
+
+    public Withdrawal withdrawal(OperationLocation location, double amount)
 			throws BusinessException {
 		withdrawalAmount(amount);
 

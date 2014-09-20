@@ -30,4 +30,8 @@ public class Transfer extends Transaction {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+    public boolean isPending() {
+        return status.equals(Status.PENDING);
+    }
 }
