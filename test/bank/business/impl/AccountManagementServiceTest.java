@@ -1,0 +1,65 @@
+package bank.business.impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import bank.business.domain.ATM;
+import bank.business.domain.Branch;
+import bank.business.domain.Client;
+import bank.business.domain.CurrentAccount;
+import bank.business.domain.Status;
+import bank.business.domain.Transfer;
+import bank.data.Database;
+
+public class AccountManagementServiceTest {
+
+    public static final long BRANCH_ID = 1;
+    public static final long SOURCE_ACCOUNT = 1;
+    public static final long DESTINY_ACCOUNT = 2;
+    public static final int ATM_ID = 123;
+
+    private Branch branch;
+    private CurrentAccount destinyAccount;
+    private CurrentAccount sourceAccount;
+    private AccountManagementServiceImpl accountService;
+    private ATM atm;
+
+    @Before
+    public void setUp() {
+        Database database = new Database(false);
+        atm = new ATM(ATM_ID);
+
+        branch = new Branch(BRANCH_ID, "Campus Vale");
+        sourceAccount = Mockito.mock(CurrentAccount.class);
+        destinyAccount = anAccount(DESTINY_ACCOUNT);
+
+        database.save(atm);
+        database.save(branch);
+        database.save(sourceAccount);
+        database.save(destinyAccount);
+        
+        List<Transfer> transfers = new ArrayList<Transfer>();
+        transfers.add((new Transfer(atm, sourceAccount, destinyAccount, 1000, Status.FINISHED)));
+        transfers.add((new Transfer(atm, sourceAccount, destinyAccount, 5500, Status.PENDING)));
+        transfers.add((new Transfer(atm, sourceAccount, destinyAccount, 7000, Status.PENDING)));
+        transfers.add((new Transfer(atm, sourceAccount, destinyAccount, 6000, Status.PENDING)));
+
+        accountService = new AccountManagementServiceImpl(database);
+    }
+    
+    @Test
+    public void list_all_pending_transfers(){
+        accountService.viewAllPendingTransfers();
+        Mockito.verify(sourceAccount).getAllTransfersPending();
+    }
+    
+    private CurrentAccount anAccount(long accountId) {
+        return new CurrentAccount(branch, accountId, new Client(" ", " ", 12345, "abc",
+                new Date()));
+    }
+}
