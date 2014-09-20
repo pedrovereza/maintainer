@@ -1,13 +1,6 @@
 package bank.business.impl;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.Date;
-
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import bank.business.BusinessException;
 import bank.business.domain.ATM;
 import bank.business.domain.Branch;
@@ -15,8 +8,11 @@ import bank.business.domain.Client;
 import bank.business.domain.CurrentAccount;
 import bank.business.domain.Status;
 import bank.business.domain.Transfer;
-import bank.business.impl.AccountOperationServiceImpl;
 import bank.data.Database;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.Date;
 
 public class AccountOperationServiceTest {
 
@@ -63,7 +59,6 @@ public class AccountOperationServiceTest {
         assertEquals(4000.0, destinyAccount.getBalance(), 0.0);
     }
     
-    @Ignore
     @Test
     public void should_add_transaction_as_finished_when_branch() throws BusinessException {
         givenAccountHasBalanceOf(7000.0, SOURCE_ACCOUNT);

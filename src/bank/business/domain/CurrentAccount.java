@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class CurrentAccount implements Credentials {
 
-	private static final int MAX_ALLOW_AMOUNT = 5000;
+	private static final int MAX_ALLOWED_AMOUNT = 5000;
 	private double balance;
 	private Client client;
 	private List<Deposit> deposits;
@@ -121,7 +121,7 @@ public class CurrentAccount implements Credentials {
 		Transfer transfer = new Transfer(location, this, destinationAccount,
 				amount);
 		
-		if (amount >= MAX_ALLOW_AMOUNT) {
+		if (location instanceof ATM && amount >= MAX_ALLOWED_AMOUNT) {
 			transfer.setStatus(Status.PENDING);
 		} else {
 			destinationAccount.depositAmount(amount);
