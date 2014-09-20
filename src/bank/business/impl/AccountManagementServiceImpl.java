@@ -14,6 +14,7 @@ import bank.business.domain.Client;
 import bank.business.domain.CurrentAccount;
 import bank.business.domain.Employee;
 import bank.business.domain.OperationLocation;
+import bank.business.domain.Status;
 import bank.business.domain.Transfer;
 import bank.data.Database;
 import bank.util.RandomString;
@@ -76,6 +77,18 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 		}
 		return pendingTransfers;
 		
+	}
+
+	public Transfer authorize(Transfer transfer) throws BusinessException {
+		transfer.getAccount().finalizeTransfer(transfer);
+		transfer.setStatus(Status.FINISHED);
+		return transfer;
+	}
+
+	public Transfer cancel(Transfer transfer) throws BusinessException {
+		transfer.getAccount().cancelTransfer(transfer);
+		transfer.setStatus(Status.CANCELED);
+		return transfer;
 	}
 
 }

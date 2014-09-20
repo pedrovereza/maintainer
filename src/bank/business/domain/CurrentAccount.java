@@ -173,4 +173,12 @@ public class CurrentAccount implements Credentials {
 		this.balance -= amount;
 	}
 
+	public void finalizeTransfer(Transfer transfer) throws BusinessException {
+		transfer.getDestinationAccount().depositAmount(transfer.getAmount());
+	}
+
+	public void cancelTransfer(Transfer transfer) throws BusinessException {
+		this.depositAmount(transfer.getAmount());
+	}
+
 }

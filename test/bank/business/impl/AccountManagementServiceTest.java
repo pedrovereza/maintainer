@@ -1,5 +1,7 @@
 package bank.business.impl;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import bank.business.BusinessException;
 import bank.business.domain.ATM;
 import bank.business.domain.Branch;
 import bank.business.domain.Client;
@@ -30,13 +33,16 @@ public class AccountManagementServiceTest {
     private ATM atm;
 
     @Before
-    public void setUp() {
+    public void setUp() throws BusinessException {
         Database database = new Database(false);
         atm = new ATM(ATM_ID);
 
         branch = new Branch(BRANCH_ID, "Campus Vale");
         sourceAccount = Mockito.mock(CurrentAccount.class);
         destinyAccount = anAccount(DESTINY_ACCOUNT);
+
+        Mockito.doCallRealMethod().when(sourceAccount).finalizeTransfer(Mockito.any(Transfer.class));
+        Mockito.doCallRealMethod().when(sourceAccount).cancelTransfer(Mockito.any(Transfer.class));
 
         database.save(atm);
         database.save(branch);
@@ -56,6 +62,22 @@ public class AccountManagementServiceTest {
     public void list_all_pending_transfers(){
         accountService.viewAllPendingTransfers();
         Mockito.verify(sourceAccount).getAllTransfersPending();
+    }
+    
+    @Test
+    public void authrorize_pending_transfers() throws BusinessException{
+    	Transfer transfer = new Transfer(atm, sourceAccount, destinyAccount, 5500, Status.PENDING);
+    	Transfer authorizedTransfer = accountService.authorize(transfer);
+    	assertEquals(Status.FINISHED, authorizedTransfer.getStatus());
+    	assertEquals(5500, destinyAccount.getBalance(), 0.0);    	
+    }
+    
+    @Test
+    public void cancel_pending_transfers() throws BusinessException{
+    	Transfer transfer = new Transfer(atm, sourceAccount, destinyAccount, 5500, Status.PENDING);
+    	Transfer authorizedTransfer = accountService.cancel(transfer);
+    	assertEquals(Status.CANCELED, authorizedTransfer.getStatus());
+    	assertEquals(0, destinyAccount.getBalance(), 0.0);    	
     }
     
     private CurrentAccount anAccount(long accountId) {
