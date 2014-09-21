@@ -20,12 +20,11 @@ import java.util.List;
 public class AccountManagementServiceTest {
 
     public static final long BRANCH_ID = 1;
-    public static final long SOURCE_ACCOUNT = 1;
-    public static final long DESTINY_ACCOUNT = 2;
+    public static final long DESTINATION_ACCOUNT = 2;
     public static final int ATM_ID = 123;
 
     private Branch branch;
-    private CurrentAccount destinyAccount;
+    private CurrentAccount destinationAccount;
     private CurrentAccount sourceAccount;
     private AccountManagementServiceImpl accountService;
     private ATM atm;
@@ -37,7 +36,7 @@ public class AccountManagementServiceTest {
 
         branch = new Branch(BRANCH_ID, "Campus Vale");
         sourceAccount = Mockito.mock(CurrentAccount.class);
-        destinyAccount = anAccount(DESTINY_ACCOUNT);
+        destinationAccount = anAccount(DESTINATION_ACCOUNT);
 
         Mockito.doCallRealMethod().when(sourceAccount).finalizeTransfer(Mockito.any(Transfer.class));
         Mockito.doCallRealMethod().when(sourceAccount).cancelTransfer(Mockito.any(Transfer.class));
@@ -45,13 +44,13 @@ public class AccountManagementServiceTest {
         database.save(atm);
         database.save(branch);
         database.save(sourceAccount);
-        database.save(destinyAccount);
+        database.save(destinationAccount);
         
         List<Transfer> transfers = new ArrayList<Transfer>();
-        transfers.add((new Transfer(atm, sourceAccount, destinyAccount, 1000, Status.FINISHED)));
-        transfers.add((new Transfer(atm, sourceAccount, destinyAccount, 5500, Status.PENDING)));
-        transfers.add((new Transfer(atm, sourceAccount, destinyAccount, 7000, Status.PENDING)));
-        transfers.add((new Transfer(atm, sourceAccount, destinyAccount, 6000, Status.PENDING)));
+        transfers.add((new Transfer(atm, sourceAccount, destinationAccount, 1000, Status.FINISHED)));
+        transfers.add((new Transfer(atm, sourceAccount, destinationAccount, 5500, Status.PENDING)));
+        transfers.add((new Transfer(atm, sourceAccount, destinationAccount, 7000, Status.PENDING)));
+        transfers.add((new Transfer(atm, sourceAccount, destinationAccount, 6000, Status.PENDING)));
 
         accountService = new AccountManagementServiceImpl(database);
     }
@@ -64,18 +63,18 @@ public class AccountManagementServiceTest {
     
     @Test
     public void authrorize_pending_transfers() throws BusinessException{
-    	Transfer transfer = new Transfer(atm, sourceAccount, destinyAccount, 5500, Status.PENDING);
+    	Transfer transfer = new Transfer(atm, sourceAccount, destinationAccount, 5500, Status.PENDING);
     	Transfer authorizedTransfer = accountService.authorize(transfer);
     	assertEquals(Status.FINISHED, authorizedTransfer.getStatus());
-    	assertEquals(5500, destinyAccount.getBalance(), 0.0);    	
+    	assertEquals(5500, destinationAccount.getBalance(), 0.0);
     }
     
     @Test
     public void cancel_pending_transfers() throws BusinessException{
-    	Transfer transfer = new Transfer(atm, sourceAccount, destinyAccount, 5500, Status.PENDING);
+    	Transfer transfer = new Transfer(atm, sourceAccount, destinationAccount, 5500, Status.PENDING);
     	Transfer authorizedTransfer = accountService.cancel(transfer);
     	assertEquals(Status.CANCELED, authorizedTransfer.getStatus());
-    	assertEquals(0, destinyAccount.getBalance(), 0.0);    	
+    	assertEquals(0, destinationAccount.getBalance(), 0.0);
     }
     
     private CurrentAccount anAccount(long accountId) {

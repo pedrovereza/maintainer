@@ -87,12 +87,12 @@ public class AuthorizeTransferCommand extends Command {
             System.out.println(getTextManager().getText("message.option.authorize"));
             option = ui.readString(null);
 
-        } while (!validOption(option));
+        } while (!isValidOption(option));
 
         return option;
     }
 
-    private boolean validOption(String option) {
+    private boolean isValidOption(String option) {
         return option.equalsIgnoreCase(AUTHORIZE_OPTION) ||
                 option.equalsIgnoreCase(CANCEL_OPTION) ||
                 option.equalsIgnoreCase(BACK_OPTION);
