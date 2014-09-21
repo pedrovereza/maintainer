@@ -3,10 +3,6 @@
  */
 package bank.business.impl;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import bank.business.AccountManagementService;
 import bank.business.BusinessException;
 import bank.business.domain.Branch;
@@ -18,6 +14,10 @@ import bank.business.domain.Status;
 import bank.business.domain.Transfer;
 import bank.data.Database;
 import bank.util.RandomString;
+
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Ingrid Nunes
@@ -70,7 +70,7 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 	}
 
 	@Override	
-	public List<Transfer> viewAllPendingTransfers() {
+	public List<Transfer> getAllPendingTransfers() {
 		List<Transfer> pendingTransfers = new LinkedList<Transfer>();
 		for (CurrentAccount account : database.getAllCurrentAccounts()) {
 			pendingTransfers.addAll(account.getAllTransfersPending());			

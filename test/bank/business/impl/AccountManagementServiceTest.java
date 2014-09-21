@@ -1,15 +1,6 @@
 package bank.business.impl;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-
 import bank.business.BusinessException;
 import bank.business.domain.ATM;
 import bank.business.domain.Branch;
@@ -18,6 +9,13 @@ import bank.business.domain.CurrentAccount;
 import bank.business.domain.Status;
 import bank.business.domain.Transfer;
 import bank.data.Database;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class AccountManagementServiceTest {
 
@@ -60,7 +58,7 @@ public class AccountManagementServiceTest {
     
     @Test
     public void list_all_pending_transfers(){
-        accountService.viewAllPendingTransfers();
+        accountService.getAllPendingTransfers();
         Mockito.verify(sourceAccount).getAllTransfersPending();
     }
     

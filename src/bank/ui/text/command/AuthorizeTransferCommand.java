@@ -20,7 +20,7 @@ public class AuthorizeTransferCommand extends Command {
     public void execute() throws Exception {
         UIUtils ui = UIUtils.INSTANCE;
 
-        List<Transfer> transfers = accountManagementService.viewAllPendingTransfers();
+        List<Transfer> transfers = accountManagementService.getAllPendingTransfers();
 
         if (transfers.isEmpty()) {
             System.out.println("Não há transferências para autorizar");
