@@ -1,5 +1,6 @@
 package bank.ui.text.command;
 
+import static java.lang.String.format;
 import bank.business.AccountManagementService;
 import bank.business.domain.Transfer;
 import bank.ui.text.BankTextInterface;
@@ -23,7 +24,7 @@ public class AuthorizeTransferCommand extends Command {
         List<Transfer> transfers = accountManagementService.getAllPendingTransfers();
 
         if (transfers.isEmpty()) {
-            System.out.println("Não há transferências para autorizar");
+            System.out.println("message.nothing.pending");
             return;
         }
 
@@ -35,7 +36,7 @@ public class AuthorizeTransferCommand extends Command {
             return;
 
         Transfer transferToAuthorize = transfers.get(transferSelected - 1);
-        System.out.println("Deseja autorizar? (S/N)");
+        System.out.println("message.option.authorize");
 
         Transfer result;
 
@@ -51,9 +52,9 @@ public class AuthorizeTransferCommand extends Command {
 
     private void showSelectableTransfers(List<Transfer> transfers) {
         for (int i = 0; i < transfers.size(); ++i) {
-            System.out.println(String.format("%d - %s", i +1, transfers.get(i)));
+            System.out.println(format("%d - %s", i + 1, transfers.get(i)));
         }
 
-        System.out.println("Selecione uma das transferências listadas (ou 0 para sair): ");
+        System.out.println("message.select.transfer");
     }
 }
