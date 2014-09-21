@@ -27,15 +27,14 @@ public class AuthorizeTransferCommand extends Command {
             return;
         }
 
-        for (int i = 0; i < transfers.size(); ++i) {
-            System.out.println(String.format("%d - %s", i, transfers.get(i)));
-        }
-        System.out.println("Selecione uma das transferências listadas: ");
-
+        showSelectableTransfers(transfers);
 
         int transferSelected = ui.readInteger(null);
 
-        Transfer transferToAuthorize = transfers.get(transferSelected);
+        if (transferSelected == 0)
+            return;
+
+        Transfer transferToAuthorize = transfers.get(transferSelected - 1);
         System.out.println("Deseja autorizar? (S/N)");
 
         Transfer result;
@@ -48,5 +47,13 @@ public class AuthorizeTransferCommand extends Command {
         }
 
         System.out.println(result);
+    }
+
+    private void showSelectableTransfers(List<Transfer> transfers) {
+        for (int i = 0; i < transfers.size(); ++i) {
+            System.out.println(String.format("%d - %s", i +1, transfers.get(i)));
+        }
+
+        System.out.println("Selecione uma das transferências listadas (ou 0 para sair): ");
     }
 }

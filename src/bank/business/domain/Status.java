@@ -1,5 +1,17 @@
 package bank.business.domain;
 
 public enum Status {
-	FINISHED, PENDING, CANCELED;
+	FINISHED("Finalizada"), PENDING("Pendente"), CANCELED("Cancelada");
+
+    private String message;
+
+    private Status(String message) {
+
+        this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return message;
+    }
 }

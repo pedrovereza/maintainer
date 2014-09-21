@@ -46,7 +46,7 @@ public class Transfer extends Transaction {
 
     @Override
     public String toString() {
-        return format("CC origem: %s, CC destino: %s, valor: %f", getAccount().getId(),
+        return format("[%s] CC origem: %s, CC destino: %s, valor: %f", status, getAccount().getId(),
                 getDestinationAccount().getId(), getAmount());
     }
 }
