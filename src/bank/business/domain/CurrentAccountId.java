@@ -63,4 +63,8 @@ public class CurrentAccountId implements Serializable {
 		return result;
 	}
 
+    @Override
+    public String toString() {
+        return String.valueOf(number);
+    }
 }

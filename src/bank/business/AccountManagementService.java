@@ -3,12 +3,12 @@
  */
 package bank.business;
 
-import java.util.Date;
-import java.util.List;
-
 import bank.business.domain.CurrentAccount;
 import bank.business.domain.Employee;
 import bank.business.domain.Transfer;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Ingrid Nunes
@@ -24,4 +24,8 @@ public interface AccountManagementService {
 			throws BusinessException;
 	
 	public List<Transfer> viewAllPendingTransfers();
+
+    public Transfer authorize(Transfer transfer) throws BusinessException;
+
+    public Transfer cancel(Transfer transfer) throws BusinessException;
 }
