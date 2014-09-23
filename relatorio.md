@@ -11,7 +11,7 @@ As novas funcionalidades solicitadas foram incluídas na **versão texto do apli
 * 	Criação do método getAllTransfersPending() na classe CurrentAccount que retorna uma lista imutável (desejou-se evitar que outros objetos possam alterar ou remover elementos desta lista) que contém apenas as transferências com status PENDING.
 
 
-*	Inclusão dos métodos gelAllPendingTransfers(), cancel(Transfer) e authorize(Transfer) na interface AccountManagementService, bem como suas implementações na classe AccountManagementServiceImpl.
+*	Inclusão dos métodos getAllPendingTransfers(), cancel(Transfer) e authorize(Transfer) na interface AccountManagementService, bem como suas implementações na classe AccountManagementServiceImpl.
 
 *	Criação do método finalizeTransfer(Transfer) em CurrentAccount, que faz o depósito do valor da transferência na conta destino (quando a transferência é autorizada).
 
