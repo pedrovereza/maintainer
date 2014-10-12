@@ -6,4 +6,5 @@ public interface ConferenceIOService {
     Double readDouble();
     Integer readInteger();
     void output(Object obj);
+    void output(String format, Object... obj);
 }

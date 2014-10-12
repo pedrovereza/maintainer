@@ -13,4 +13,8 @@ public class Conferencia {
         this.artigos = artigos;
         this.membrosComite = membrosComite;
     }
+
+    public List<Pesquisador> getMembrosComite() {
+        return membrosComite;
+    }
 }

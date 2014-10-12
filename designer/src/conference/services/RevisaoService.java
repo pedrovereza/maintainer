@@ -13,7 +13,7 @@ public class RevisaoService {
             throw new ConferenciaException();
         }
 
-        artigo.addRevisao(new Revisao(idRevisor, nota));
+        artigo.addRevisao(idRevisor, nota);
     }
 
     private boolean notaValida(double nota) {

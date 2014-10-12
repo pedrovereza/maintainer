@@ -20,15 +20,31 @@ public class Artigo {
         this.topicosPesquisa = topicosPesquisa;
     }
 
+    public Integer getIdAutor() {
+        return idAutor;
+    }
+
+    public TopicosPesquisa getTopicosPesquisa() {
+        return topicosPesquisa;
+    }
+
     public List<Revisao> getRevisoes() {
         return Collections.unmodifiableList(revisoes);
     }
 
-    public void addRevisao(Revisao revisao) {
+    public void addRevisao(Integer idRevisor, Double nota) {
+        revisoes.get(idRevisor).setNota(nota);
+    }
 
+    public void addRevisor(Integer idRevisor) {
+        revisoes.add(new Revisao(idRevisor));
     }
 
     public Double getMediaNotas() {
         return null;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }
