@@ -1,13 +1,13 @@
 package conference.command;
 
 import conference.services.ConferenceIOService;
-import conference.services.ReviewService;
+import conference.services.RevisaoService;
 
 public class AlocacaoCommand extends AbstractCommand {
 
-    private ReviewService reviewService = new ReviewService() {
+    private RevisaoService revisaoService = new RevisaoService() {
         @Override
-        public void assignReview(Integer idArtigo, Integer idReviewer, double nota) {
+        public void assignRevisao(Integer idArtigo, Integer idReviewer, double nota) {
         }
     };
 
@@ -29,7 +29,7 @@ public class AlocacaoCommand extends AbstractCommand {
         showMensagemNota();
         Double nota = conferenceIOService.readDouble();
 
-        reviewService.assignReview(idArtigo, idRevisor, nota);
+        revisaoService.assignRevisao(idArtigo, idRevisor, nota);
 
         conferenceIOService.output("alocacaoCommand");
     }

@@ -1,0 +1,39 @@
+package conference.services;
+
+import conference.data.Database;
+import conference.model.Artigo;
+import conference.model.SelecaoArtigos;
+import conference.services.comparators.ArtigoNotaAscendingComparator;
+import conference.services.comparators.ArtigoNotaDescendingComparator;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+public class SelecaoService {
+
+    Database database;
+
+    public SelecaoArtigos selecionaArtigosParaConferencia(String siglaConferencia) {
+        List<Artigo> artigos = database.getArtigosParaConferencia(siglaConferencia);
+
+        return selecionaArtigos(artigos);
+    }
+
+    private SelecaoArtigos selecionaArtigos(List<Artigo> artigos) {
+        Double notaMedia = notaMedia(artigos);
+
+        List<Artigo> artigosAceitos = new LinkedList<>(artigos);
+        List<Artigo> artigosRejeitados = new LinkedList<>(artigos);
+
+        Collections.sort(artigosAceitos, new ArtigoNotaAscendingComparator());
+        Collections.sort(artigosRejeitados, new ArtigoNotaDescendingComparator());
+
+        return new SelecaoArtigos(artigosAceitos, artigosRejeitados);
+
+    }
+
+    private Double notaMedia(List<Artigo> artigos) {
+        return 0.0;
+    }
+}

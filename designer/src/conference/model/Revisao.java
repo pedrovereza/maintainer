@@ -1,12 +1,14 @@
 package conference.model;
 
-public class Review {
+public class Revisao {
 
     private Double nota;
-    private String idAutor;
+    private Integer idAutor;
 
-    public Review(Double nota, String idAutor) {
+    public Revisao(Integer idAutor, double nota) {
         this.nota = nota;
         this.idAutor = idAutor;
     }
+
+
 }

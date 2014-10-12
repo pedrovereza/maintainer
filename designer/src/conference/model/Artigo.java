@@ -9,7 +9,7 @@ public class Artigo {
     private Integer idAutor;
     private String siglaConferencia;
     private TopicosPesquisa topicosPesquisa;
-    private List<Review> reviews;
+    private List<Revisao> revisoes;
 
     public Artigo(Integer id, String titulo, Integer idAutor, String siglaConferencia, TopicosPesquisa topicosPesquisa) {
         this.id = id;
@@ -19,7 +19,7 @@ public class Artigo {
         this.topicosPesquisa = topicosPesquisa;
     }
 
-    public void addReview(Review review) {
-        reviews.add(review);
+    public void addRevisao(Revisao revisao) {
+
     }
 }
