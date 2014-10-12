@@ -21,7 +21,7 @@ public class SelecaoService {
     }
 
     private SelecaoArtigos selecionaArtigos(List<Artigo> artigos) {
-        Double notaMedia = notaMedia(artigos);
+        Double media = artigos.get(0).getMediaNotas();
 
         List<Artigo> artigosAceitos = new LinkedList<>(artigos);
         List<Artigo> artigosRejeitados = new LinkedList<>(artigos);
@@ -30,10 +30,6 @@ public class SelecaoService {
         Collections.sort(artigosRejeitados, new ArtigoNotaDescendingComparator());
 
         return new SelecaoArtigos(artigosAceitos, artigosRejeitados);
-
     }
 
-    private Double notaMedia(List<Artigo> artigos) {
-        return 0.0;
-    }
 }

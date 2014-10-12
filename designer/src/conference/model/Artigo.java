@@ -27,4 +27,8 @@ public class Artigo {
     public void addRevisao(Revisao revisao) {
 
     }
+
+    public Double getMediaNotas() {
+        return null;
+    }
 }
