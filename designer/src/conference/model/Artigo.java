@@ -1,5 +1,6 @@
 package conference.model;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Artigo {
@@ -17,6 +18,10 @@ public class Artigo {
         this.idAutor = idAutor;
         this.siglaConferencia = siglaConferencia;
         this.topicosPesquisa = topicosPesquisa;
+    }
+
+    public List<Revisao> getRevisoes() {
+        return Collections.unmodifiableList(revisoes);
     }
 
     public void addRevisao(Revisao revisao) {

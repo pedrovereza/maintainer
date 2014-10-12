@@ -8,12 +8,11 @@ public class RevisaoService {
 
     private Database database;
 
-    public void assignRevisao(Integer idArtigo, Integer idRevisor, double nota) {
+    public void assignRevisao(Artigo artigo, Integer idRevisor, double nota) {
         if (!notaValida(nota)) {
             throw new ConferenciaException();
         }
 
-        Artigo artigo = database.getArtigo(idArtigo);
         artigo.addRevisao(new Revisao(idRevisor, nota));
     }
 
