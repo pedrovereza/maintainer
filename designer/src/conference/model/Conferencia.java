@@ -17,4 +17,8 @@ public class Conferencia {
     public List<Pesquisador> getMembrosComite() {
         return membrosComite;
     }
+
+    public List<Artigo> getArtigos() {
+        return artigos;
+    }
 }

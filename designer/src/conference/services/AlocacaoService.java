@@ -25,7 +25,7 @@ public class AlocacaoService {
         Conferencia conferencia = database.getConferencia(siglaConferencia);
         List<Pesquisador> comite = conferencia.getMembrosComite();
 
-        List<Artigo> artigosDaConferencia = database.getArtigosParaConferencia(siglaConferencia);
+        List<Artigo> artigosDaConferencia = conferencia.getArtigos();
 
         for (int i = 0; i < numeroRevisores; i++) {
 
