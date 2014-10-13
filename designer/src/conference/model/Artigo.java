@@ -20,6 +20,10 @@ public class Artigo {
         this.topicosPesquisa = topicosPesquisa;
     }
 
+    public boolean foiRevisado() {
+        return false;
+    }
+
     public Integer getIdAutor() {
         return idAutor;
     }

@@ -17,7 +17,15 @@ public class SelecaoService {
     public SelecaoArtigos selecionaArtigosParaConferencia(String siglaConferencia) {
         List<Artigo> artigos = database.getArtigosParaConferencia(siglaConferencia);
 
+         if (!todosArtigosRevisados(artigos)) {
+             throw new ConferenciaException();
+         }
+
         return selecionaArtigos(artigos);
+    }
+
+    private boolean todosArtigosRevisados(List<Artigo> artigos) {
+        return false;
     }
 
     private SelecaoArtigos selecionaArtigos(List<Artigo> artigos) {
