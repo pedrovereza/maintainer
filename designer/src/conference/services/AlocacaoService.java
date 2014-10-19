@@ -4,6 +4,7 @@ import conference.data.Database;
 import conference.model.Artigo;
 import conference.model.Conferencia;
 import conference.model.Pesquisador;
+import conference.services.comparators.ArtigoComparator;
 import conference.services.comparators.RevisorComparator;
 
 import java.util.Collections;
@@ -26,6 +27,8 @@ public class AlocacaoService {
         List<Pesquisador> comite = conferencia.getMembrosComite();
 
         List<Artigo> artigosDaConferencia = conferencia.getArtigos();
+
+        Collections.sort(artigosDaConferencia, new ArtigoComparator());
 
         for (int i = 0; i < numeroRevisores; i++) {
 
